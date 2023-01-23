@@ -7,7 +7,7 @@ use Barryvdh\Debugbar\Middleware\InjectDebugbar;
 use DebugBar\DataFormatter\DataFormatter;
 use DebugBar\DataFormatter\DataFormatterInterface;
 use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Foundation\Application;
+use \Illuminate\Container\Container;
 use Illuminate\Routing\Router;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Collection;
@@ -54,7 +54,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $this->app->extend(
             'view.engine.resolver',
-            function (EngineResolver $resolver, Application $application): EngineResolver {
+            function (EngineResolver $resolver, Container $application): EngineResolver {
                 $laravelDebugbar = $application->make(LaravelDebugbar::class);
 
                 $shouldTrackViewTime = $laravelDebugbar->isEnabled() &&
